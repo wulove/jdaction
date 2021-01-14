@@ -50,4 +50,4 @@ jobs:
                   #CRONTAB
                   CRONTAB: ${{ '15 10 0 * * *' }} #定时在每天0整执行一次
                   LONG_TIME_TRIGGER: true
-                  SYNCURL: https://gitee.com/lxk0301/jd_scripts/raw/master/jd_crazy_joy_coin.js
+                  SYNCURL: https://github.com/wulove/jd_scripts/raw/master/jd_crazy_joy_coin.js
