@@ -52,6 +52,6 @@ jobs:
                   GITHUBUSER: ${{ secrets.GITHUBUSER }}
                   TRIGGER_KEYWORDS: jd_crazy_joy_coin
                   #CRONTAB
-                  CRONTAB: ${{ '0 11 0 * * *' }} #定时在每天0整执行一次
+                  CRONTAB: ${{ '10 10 0 * * *' }} #定时在每天0整执行一次
                   LONG_TIME_TRIGGER: true
                   SYNCURL: https://gitee.com/lxk0301/jd_scripts/raw/master/jd_crazy_joy_coin.js
