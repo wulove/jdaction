@@ -47,7 +47,7 @@ jobs:
                   ACTIONS_TRIGGER_TOKEN: ${{ secrets.ACTIONS_TRIGGER_TOKEN }}
                   REPO: ${{ secrets.REPO }}
                   GITHUBUSER: ${{ secrets.GITHUBUSER }}
-                  TRIGGER_KEYWORDS: ${{ 'jd_car_exchange' }}
+                  TRIGGER_KEYWORDS: jd_car_exchange
                   #CRONTAB
                   CRONTAB: ${{ '0 0 0 * * *' }} #定时在每天0整执行一次
                   SYNCURL: https://gitee.com/lxk0301/jd_scripts/raw/master/jd_car_exchange.js
