@@ -24,7 +24,7 @@ jobs:
             - name: "运行【自定义京东汽车兑换】"
               timeout-minutes: 70
               run: |
-                  node schedule.js
+                  node onlyOneExecute.js
               env:
                   #推送专用
                   PUSH_KEY: ${{ github.event.client_payload.PUSH_KEY || secrets.PUSH_KEY }}
