@@ -4,7 +4,9 @@ const axios = require("axios");
 const smartReplace = require("./smartReplace");
 
 async function changeFiele() {
+    console.log("get前");
     let response = await axios.get(process.env.SYNCURL);
+    console.log("get后");
     let content = response.data;
     content = await smartReplace.inject(content);
     await fs.writeFileSync("./executeOnce.js", content, "utf8");
