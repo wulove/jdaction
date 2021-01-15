@@ -124,8 +124,9 @@ async function t() {
 async function changeFile() {
     let response = await axios.get(process.env.SYNCURL);
     let content = response.data;
+    console.log("content: " + content);
     REMOTE_CONTENT = await smartReplace.inject(content);
-    await fs.writeFileSync("./executeOnce.js", content, "utf8");
+    await fs.writeFileSync("./executeOnce.js", REMOTE_CONTENT, "utf8");
     console.log("替换变量完毕");
 }
 //#endregion
