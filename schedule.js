@@ -115,7 +115,11 @@ async function t() {
     if (!REMOTE_CONTENT) {
         changeFile();
     }
-    await exec("node executeOnce.js", { stdio: "inherit" });
+    try {
+        await exec("node executeOnce.js", { stdio: "inherit" });
+    } catch (e) {
+        console.log("执行异常:" + e);
+    }
 }
 async function changeFile() {
     let response = await axios.get(process.env.SYNCURL);
