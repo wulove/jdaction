@@ -73,7 +73,7 @@ const exec = require("child_process").execSync;
 const cron = require("node-cron");
 const axios = require("axios");
 const fs = require("fs");
-
+const smartReplace = require("./smartReplace");
 //#region 全局变量
 
 let CRONTAB = process.env.CRONTAB; //请填写五位或六位的调度命令,这里的时间使用北京时间即可
@@ -121,7 +121,7 @@ async function changeFile() {
     let response = await axios.get(process.env.SYNCURL);
     let content = response.data;
     REMOTE_CONTENT = await smartReplace.inject(content);
-    await fs.writeFileSync("./executeOnce.js", REMOTE_CONTENT, "utf8");
+    await fs.writeFileSync("./executeOnce.js", content, "utf8");
     console.log("替换变量完毕");
 }
 //#endregion
