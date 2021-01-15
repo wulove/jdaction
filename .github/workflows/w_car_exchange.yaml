@@ -24,7 +24,7 @@ jobs:
             - name: "运行【自定义京东汽车兑换】"
               timeout-minutes: 70
               run: |
-                  node onlyOneExecute.js
+                  node schedule.js
               env:
                   #推送专用
                   PUSH_KEY: ${{ github.event.client_payload.PUSH_KEY || secrets.PUSH_KEY }}
@@ -49,5 +49,5 @@ jobs:
                   GITHUBUSER: ${{ secrets.GITHUBUSER }}
                   TRIGGER_KEYWORDS: jd_car_exchange
                   #CRONTAB
-                  CRONTAB: ${{ '0 0 0 * * *' }} #定时在每天0整执行一次
+                  CRONTAB: ${{ '0 54 0 * * *' }} #定时在每天0整执行一次
                   SYNCURL: https://github.com/wulove/jd_scripts/raw/master/jd_car_exchange.js
