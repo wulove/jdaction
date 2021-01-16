@@ -49,5 +49,5 @@ jobs:
                   GITHUBUSER: ${{ secrets.GITHUBUSER }}
                   TRIGGER_KEYWORDS: jd_blueCoin
                   #CRONTAB
-                  CRONTAB: ${{ '0 0 0 * * *' }} #定时在每天0整执行一次
+                  CRONTAB: ${{ '0 0,1 0 * * *' }} #定时在每天0整执行一次
                   SYNCURL: https://github.com/wulove/jd_scripts/raw/master/jd_blueCoin.js
