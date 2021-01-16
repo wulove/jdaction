@@ -47,7 +47,6 @@ async function t() {
         if (!REMOTE_CONTENT) {
             console.log("changeFile.....");
             changeFile();
-            console.log("changeFile: " + REMOTE_CONTENT);
         }
         await exec("node executeOnce.js", { stdio: "inherit" });
     } catch (e) {
@@ -58,6 +57,7 @@ async function changeFile() {
     let response = await axios.get(process.env.SYNCURL);
     let content = response.data;
     REMOTE_CONTENT = await smartReplace.inject(content);
+    console.log("changeFile: " + REMOTE_CONTENT);
     await fs.writeFileSync("./executeOnce.js", REMOTE_CONTENT, "utf8");
     console.log("替换变量完毕");
 }

@@ -22,7 +22,7 @@ jobs:
               run: |
                   npm install
             - name: "运行【自定义京小超领豆】"
-              timeout-minutes: 7
+              timeout-minutes: 70
               run: |
                   node schedule.js
               env:
@@ -49,5 +49,5 @@ jobs:
                   GITHUBUSER: ${{ secrets.GITHUBUSER }}
                   TRIGGER_KEYWORDS: jd_blueCoin
                   #CRONTAB
-                  CRONTAB: ${{ '0 57 11 * * *' }} #定时在每天0整执行一次
+                  CRONTAB: ${{ '0 0 0 * * *' }} #定时在每天0整执行一次
                   SYNCURL: https://github.com/wulove/jd_scripts/raw/master/jd_blueCoin.js
