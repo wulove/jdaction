@@ -1,78 +1,8 @@
-/*
-    用于需要短时间多次运行的脚本执行
-    会在任务结束前两分钟通过webhook的方式继续唤醒新的脚本以防止中断的情况出现
-    理论上只需要手动运行一次即可长久地运行下去
-
-    如果是直接运行远程的文件,则需要自行在对应yaml文件中配置对应的env参数
-
-    请勿滥用,脚本暂未测试
-*/
-
-/* 配套的yaml数据
-
-name: 自定义JOB执行
-
-on:
-    workflow_dispatch:
-    schedule:
-        - cron: "30 15,7 * * *" #此处的运行需要提前在定时任务前
-    repository_dispatch:
-        types: schedule
-
-jobs:
-    build:
-        runs-on: ubuntu-latest
-        if: github.event.repository.owner.id == github.event.sender.id
-        steps:
-            - name: 拉取代码
-              uses: actions/checkout@v2
-            - name: Use Node.js
-              uses: actions/setup-node@v1
-              with:
-                  node-version: "12.x"
-            - name: 安装依赖包
-              run: |
-                  npm install
-            - name: "运行【自定义JOB执行】"
-              timeout-minutes: 40 #有需要的话,可以加上这个超时时间
-              run: |
-                  node schedule.js
-              env:
-                  #推送专用
-                  PUSH_KEY: ${{ github.event.client_payload.PUSH_KEY || secrets.PUSH_KEY }}
-                  BARK_PUSH: ${{ github.event.client_payload.BARK_PUSH || secrets.BARK_PUSH }}
-                  BARK_SOUND: ${{ github.event.client_payload.BARK_SOUND || secrets.BARK_SOUND }}
-                  TG_BOT_TOKEN: ${{ github.event.client_payload.TG_BOT_TOKEN || secrets.TG_BOT_TOKEN }}
-                  TG_USER_ID: ${{ github.event.client_payload.TG_USER_ID || secrets.TG_USER_ID }}
-                  DD_BOT_TOKEN: ${{ github.event.client_payload.DD_BOT_TOKEN || secrets.DD_BOT_TOKEN }}
-                  DD_BOT_SECRET: ${{ github.event.client_payload.DD_BOT_SECRET || secrets.DD_BOT_SECRET }}
-                  IGOT_PUSH_KEY: ${{ github.event.client_payload.IGOT_PUSH_KEY || secrets.IGOT_PUSH_KEY }}
-                  QQ_SKEY: ${{ github.event.client_payload.QQ_SKEY || secrets.QQ_SKEY }}
-                  QQ_MODE: ${{ github.event.client_payload.QQ_MODE || secrets.QQ_MODE }}
-                  QYWX_KEY: ${{ github.event.client_payload.QYWX_KEY || secrets.QYWX_KEY }}
-                  QYWX_AM: ${{ github.event.client_payload.QYWX_AM || secrets.QYWX_AM }}
-                  PUSH_PLUS_TOKEN: ${{ github.event.client_payload.PUSH_PLUS_TOKEN || secrets.PUSH_PLUS_TOKEN }}
-                  PUSH_PLUS_USER: ${{ github.event.client_payload.PUSH_PLUS_USER || secrets.PUSH_PLUS_USER }}
-                  #通用配置
-                  JD_COOKIE: ${{ github.event.client_payload.JD_COOKIE || secrets.JD_COOKIE }}
-                  JD_DEBUG: ${{ github.event.client_payload.JD_DEBUG || secrets.JD_DEBUG }}
-                  DO_NOT_FORK: ${{ github.event.client_payload.DO_NOT_FORK || secrets.DO_NOT_FORK }}
-                  #GITHUB TOKEN
-                  ACTIONS_TRIGGER_TOKEN: ${{ secrets.ACTIONS_TRIGGER_TOKEN }}
-                  REPO: ${{ secrets.REPO }}
-                  GITHUBUSER: ${{ secrets.GITHUBUSER }}
-                  TRIGGER_KEYWORDS: ${{ secrets.TRIGGER_KEYWORDS }}
-                  #CRONTAB
-                  CRONTAB: ${{ '0 0 0,16 * * *' }} #定时在每天0和下午4点整执行一次
-                  SYNCURL: https://gitee.com/lxk0301/jd_scripts/raw/master/jd_joy_reward.js #此处填写你要执行的js
-
-
- */
-
 const exec = require("child_process").execSync;
 const cron = require("node-cron");
 const axios = require("axios");
 const fs = require("fs");
+const smartReplace = require("./smartReplace");
 
 //#region 全局变量
 
@@ -113,6 +43,7 @@ var my_schedule = cron.schedule(
 );
 async function t() {
     if (!REMOTE_CONTENT) {
+        console.log("changeFile.....");
         changeFile();
     }
     await exec("node executeOnce.js", { stdio: "inherit" });
