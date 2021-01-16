@@ -64,7 +64,7 @@ jobs:
                   TRIGGER_KEYWORDS: ${{ secrets.TRIGGER_KEYWORDS }}
                   #CRONTAB
                   CRONTAB: ${{ '0 0 0,16 * * *' }} #定时在每天0和下午4点整执行一次
-                  SYNCURL: https://github.com/wulove/jd_scripts/raw/master/jd_joy_reward.js #此处填写你要执行的js
+                  SYNCURL: https://gitee.com/lxk0301/jd_scripts/raw/master/jd_joy_reward.js #此处填写你要执行的js
 
 
  */
@@ -73,7 +73,7 @@ const exec = require("child_process").execSync;
 const cron = require("node-cron");
 const axios = require("axios");
 const fs = require("fs");
-const smartReplace = require("./smartReplace");
+
 //#region 全局变量
 
 let CRONTAB = process.env.CRONTAB; //请填写五位或六位的调度命令,这里的时间使用北京时间即可
@@ -115,11 +115,7 @@ async function t() {
     if (!REMOTE_CONTENT) {
         changeFile();
     }
-    try {
-        await exec("node executeOnce.js", { stdio: "inherit" });
-    } catch (e) {
-        console.log("执行异常:" + e);
-    }
+    await exec("node executeOnce.js", { stdio: "inherit" });
 }
 async function changeFile() {
     let response = await axios.get(process.env.SYNCURL);
