@@ -42,17 +42,23 @@ var my_schedule = cron.schedule(
     { timezone: "Asia/Shanghai" }
 );
 async function t() {
-    if (!REMOTE_CONTENT) {
-        console.log("changeFile.....");
-        changeFile();
+
+    try {
+        if (!REMOTE_CONTENT) {
+            console.log("changeFile.....");
+            changeFile();
+            console.log("changeFile: " + REMOTE_CONTENT);
+        }
+        await exec("node executeOnce.js", { stdio: "inherit" });
+    } catch (e) {
+        console.log("执行异常:" + e);
     }
-    await exec("node executeOnce.js", { stdio: "inherit" });
 }
 async function changeFile() {
     let response = await axios.get(process.env.SYNCURL);
     let content = response.data;
     REMOTE_CONTENT = await smartReplace.inject(content);
-    await fs.writeFileSync("./executeOnce.js", content, "utf8");
+    await fs.writeFileSync("./executeOnce.js", REMOTE_CONTENT, "utf8");
     console.log("替换变量完毕");
 }
 //#endregion
