@@ -6,7 +6,7 @@ name: 工业品爱消除2
 on:
     workflow_dispatch:
     schedule:
-        - cron: "*/3 * * * *"
+        - cron: "* * * * *"
     watch:
         types: [started]
     repository_dispatch:
