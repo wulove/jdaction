@@ -5,8 +5,8 @@ name: 工业品爱消除
 
 on:
     workflow_dispatch:
-    schedule:
-        - cron: "0/3 * * * *"
+#    schedule:
+#        - cron: "0/3 * * * *"
     watch:
         types: [started]
     repository_dispatch:
