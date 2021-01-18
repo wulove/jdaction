@@ -45,7 +45,6 @@ async function t() {
 
     try {
         if (!REMOTE_CONTENT) {
-            console.log("changeFile.....");
             changeFile();
         }
         await exec("node executeOnce.js", { stdio: "inherit" });
@@ -57,7 +56,6 @@ async function changeFile() {
     let response = await axios.get(process.env.SYNCURL);
     let content = response.data;
     REMOTE_CONTENT = await smartReplace.inject(content);
-    console.log("changeFile: " + REMOTE_CONTENT);
     await fs.writeFileSync("./executeOnce.js", REMOTE_CONTENT, "utf8");
     console.log("替换变量完毕");
 }
@@ -72,8 +70,9 @@ if (LONG_TIME_TRIGGER) {
         if (now_time >= RUN_END_TIME) {
             hook(TRIGGER_KEYWORDS).then((res) => {
                 if (res == 1) {
+                    console.log("唤醒脚本"+TRIGGER_KEYWORDS+"成功");
                     //stop this schedule and kill the process
-                    hook(TRIGGER_KEYWORDS);
+                    //hook(TRIGGER_KEYWORDS);
                     rebirth.stop();
                 } else {
                     console.log("尝试唤醒新的脚本失败,稍后可能会进行重试");
