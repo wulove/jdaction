@@ -27,7 +27,7 @@ jobs:
               run: |
                   node onlyOneExecute.js
               env:
-                  JD_COOKIE: ${{ github.event.client_payload.JD_COOKIE || secrets.JD_COOKIE }}
+                  JD_COOKIE: ${{ secrets.JD_COOKIE_1 }}
                   JD_DEBUG: ${{ github.event.client_payload.JD_DEBUG || secrets.JD_DEBUG }}
                   JD_USER_AGENT: ${{ github.event.client_payload.JD_USER_AGENT || secrets.JD_USER_AGENT }}
                   PUSH_KEY: ${{ github.event.client_payload.PUSH_KEY || secrets.PUSH_KEY }}
@@ -48,4 +48,5 @@ jobs:
                   DREAM_FACTORY_SHARE_CODES: ${{ github.event.client_payload.DREAM_FACTORY_SHARE_CODES || secrets.DREAM_FACTORY_SHARE_CODES }}
                   SYNCURL: https://github.com/wulove/jd_scripts/raw/master/jd_dreamFactory.js
                   #专属配置
-                  IGNORE_COOKIE_JXGC: ${{ github.event.client_payload.IGNORE_COOKIE_JXGC || secrets.IGNORE_COOKIE_JXGC }} #京喜工厂禁用某些cookie的执行,因为通知太烦了呀,比如要禁用第2和第四个的执行,则填入[2,4]即可,包含中括号哦
+                  IGNORE_COOKIE_JXGC: ${{ github.event.client_payload.IGNORE_COOKIE_JXGC || secrets.IGNORE_COOKIE_JXGC }}
+                  #京喜工厂禁用某些cookie的执行,因为通知太烦了呀,比如要禁用第2和第四个的执行,则填入[2,4]即可,包含中括号哦
