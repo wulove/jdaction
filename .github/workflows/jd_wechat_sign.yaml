@@ -6,7 +6,7 @@ name: 京东粉丝专享
 on:
     workflow_dispatch:
     schedule:
-        - cron: "1 16 * * *"
+        - cron: "18 17 * * *"
     watch:
         types: [started]
     repository_dispatch:
