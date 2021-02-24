@@ -3,7 +3,7 @@ name: 监控crazyJoy分红
 on:
     workflow_dispatch:
     schedule:
-        - cron: "14 0 * * *"
+        - cron: "14 4 * * *"
     watch:
         types: [started]
     repository_dispatch:
