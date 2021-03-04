@@ -207,11 +207,6 @@ async function downloader_jd() {
     }
     if (remoteContent.indexOf("new Env('京喜农场')") > 0) {
         await download(
-            "https://github.com/wulove/jd_scripts/raw/master/jdJxncTokens.js",
-            "./jdJxncTokens.js",
-            "京喜农场Token"
-        );
-        await download(
             "https://github.com/wulove/jd_scripts/raw/master/jdJxncShareCodes.js",
             "./jdJxncShareCodes.js",
             "京喜农场分享码"
